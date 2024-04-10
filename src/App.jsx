@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './app.css';
 import WeatherCard from './components/WeatherCard';
+import CityTable from './components/CityTable';
 import { OPEN_WEATHER_BASE_URL } from './config';
 
 function App() {
@@ -48,8 +49,13 @@ function App() {
         <button type='submit'>Get City Details</button>
       </form>
       {loading && <p>Loading...</p>}
-      {error && <p>{error}</p>}
-      {weatherData && <WeatherCard weatherData={weatherData} />}
+      {!loading && (
+        <>
+          {error && <p>{error}</p>}
+          {!!geocodingData.length && <CityTable cities={geocodingData} />}
+          {weatherData && <WeatherCard weatherData={weatherData} />}
+        </>
+      )}
     </div>
   );
 }
